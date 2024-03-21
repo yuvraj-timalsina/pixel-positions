@@ -1,0 +1,4 @@
+name: larajobs
+recipe: laravel
+config:
+  webroot: ./public
