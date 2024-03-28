@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Employer;
+use App\Models\Job;
+use App\Models\Tag;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -9,17 +10,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('job_listings', function (Blueprint $table) {
+        Schema::create('job_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Employer::class)->constrained()->cascadeOnDelete();
-            $table->string('title');
-            $table->string('salary');
+            $table->foreignIdFor(Job::class, 'job_listing_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('job_listings');
+        Schema::dropIfExists('job_tag');
     }
 };
