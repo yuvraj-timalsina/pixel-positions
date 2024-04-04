@@ -12,7 +12,7 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/jobs', function () {
-    $jobs = Job::with('employer')->simplePaginate(3);
+    $jobs = Job::with('employer')->simplePaginate(5);
 
     return view('jobs', ['jobs' => $jobs]);
 })->name('jobs');
