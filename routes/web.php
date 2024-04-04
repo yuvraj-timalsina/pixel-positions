@@ -12,16 +12,29 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/jobs', function () {
-    $jobs = Job::with('employer')->simplePaginate(5);
+    $jobs = Job::with('employer')->latest()->simplePaginate(5);
 
-    return view('jobs', ['jobs' => $jobs]);
+    return view('jobs.index', ['jobs' => $jobs]);
 })->name('jobs');
+
+Route::get('/jobs/create', function () {
+    return view('jobs.create');
+})->name('create');
 
 Route::get('/jobs/{id}', function ($id) {
     $job = Job::query()->find($id);
 
-    return view('job', ['job' => $job]);
+    return view('jobs.show', ['job' => $job]);
 })->name('job');
+
+Route::post('jobs', function () {
+    Job::create([
+        'title' => request('title'),
+        'salary' => request('salary'),
+        'employer_id' => 1,
+    ]);
+    return redirect()->route('jobs');
+});
 
 Route::get('/contact', function () {
     return view('contact');
