@@ -24,8 +24,7 @@ Route::get('/jobs/create', static function () {
 })->name('jobs.create');
 
 // show
-Route::get('/jobs/{id}', static function ($id) {
-    $job = Job::find($id);
+Route::get('/jobs/{job}', static function (Job $job) {
 
     return view('jobs.show', ['job' => $job]);
 })->name('jobs.show');
