@@ -55,12 +55,27 @@ Route::get('/jobs/{id}/edit', static function ($id) {
 
 // update
 Route::patch('/jobs/{id}', static function ($id) {
-    //
-});
+    request()?->validate([
+        'title' => ['required', 'min:3'],
+        'salary' => ['required'],
+    ]);
+
+    $job = Job::findOrFail($id);
+
+    $job->update([
+        'title' => request('title'),
+        'salary' => request('salary'),
+    ]);
+
+    return to_route('jobs.show', ['id' => $id]);
+})->name('jobs.update');
 
 // destroy
 Route::delete('/jobs/{id}', static function ($id) {
-    //
+
+    Job::findOrFail($id)->delete();
+
+    return to_route('jobs');
 })->name('jobs.destroy');
 
 Route::get('/contact', static function () {
