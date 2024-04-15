@@ -24,7 +24,7 @@
                             <x-nav-link :active="request()->routeIs('about')" href="{{ route('about') }}">
                                 About
                             </x-nav-link>
-                            <x-nav-link :active="request()->routeIs('jobs')" href="{{ route('jobs') }}">
+                            <x-nav-link :active="request()->routeIs('jobs.index')" href="{{ route('jobs.index') }}">
                                 Jobs
                             </x-nav-link>
                             <x-nav-link :active="request()->routeIs('contact')" href="{{ route('contact') }}">
