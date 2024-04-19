@@ -19,15 +19,17 @@ Route::post('jobs', [JobController::class, 'store'])
 Route::get('jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
 Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
     ->middleware('auth')
-    ->can('edit-job', 'job')
+    ->can('edit', 'job')
     ->name('jobs.edit');
 
 Route::put('jobs/{job}', [JobController::class, 'update'])
     ->middleware('auth')
+    ->can('edit', 'job')
     ->name('jobs.update');
 
 Route::delete('jobs/{job}', [JobController::class, 'destroy'])
     ->middleware('auth')
+    ->can('delete', 'job')
     ->name('jobs.destroy');
 
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
