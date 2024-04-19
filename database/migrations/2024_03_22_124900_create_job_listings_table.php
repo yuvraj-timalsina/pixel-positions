@@ -9,7 +9,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('job_listings', function (Blueprint $table) {
+        Schema::create('job_listings', static function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employer::class)->constrained()->cascadeOnDelete();
             $table->string('title');

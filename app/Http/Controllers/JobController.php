@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 {
@@ -35,7 +34,7 @@ class JobController extends Controller
             'employer_id' => 1,
         ]);
 
-        return redirect()->route('jobs');
+        return to_route('jobs.index');
     }
 
     public function show(Job $job)
@@ -46,13 +45,7 @@ class JobController extends Controller
 
     public function edit(Job $job)
     {
-        if (Auth::guest()) {
-            return to_route('login');
-        }
-
-        if ($job->employer->user->isNot(Auth::user())) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        Gate::authorize('edit-job', $job);
 
         return view('jobs.edit', ['job' => $job]);
 
@@ -60,6 +53,8 @@ class JobController extends Controller
 
     public function update(Job $job): RedirectResponse
     {
+        Gate::authorize('edit-job', $job);
+
         request()?->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required'],
@@ -75,6 +70,8 @@ class JobController extends Controller
 
     public function destroy(Job $job): RedirectResponse
     {
+        Gate::authorize('edit-job', $job);
+
         $job->delete();
 
         return to_route('jobs');
