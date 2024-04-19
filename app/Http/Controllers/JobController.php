@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class JobController extends Controller
 {
@@ -13,6 +15,11 @@ class JobController extends Controller
         $jobs = Job::with('employer')->latest()->simplePaginate(5);
 
         return view('jobs.index', ['jobs' => $jobs]);
+    }
+
+    public function create(): View
+    {
+        return view('jobs.create');
     }
 
     public function store(): RedirectResponse
@@ -31,19 +38,22 @@ class JobController extends Controller
         return redirect()->route('jobs');
     }
 
-    public function create(): View
-    {
-        return view('jobs.create');
-    }
-
     public function show(Job $job)
     {
         return view('jobs.show', ['job' => $job]);
 
     }
 
-    public function edit(Job $job): View
+    public function edit(Job $job)
     {
+        if (Auth::guest()) {
+            return to_route('login');
+        }
+
+        if ($job->employer->user->isNot(Auth::user())) {
+            abort(Response::HTTP_FORBIDDEN);
+        }
+
         return view('jobs.edit', ['job' => $job]);
 
     }
