@@ -3,7 +3,7 @@
         Log In
     </x-slot:heading>
 
-    <form method="POST" action="{{ route('login-user') }}">
+    <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
@@ -13,15 +13,15 @@
                     <x-form-field>
                         <x-form-label for="email" type="email">Email</x-form-label>
                         <div class="mt-2">
-                            <x-form-input name="email" id="email" required/>
+                            <x-form-input name="email" id="email" :value="old('email')" required/>
                             <x-form-error name="email"/>
                         </div>
                     </x-form-field>
 
                     <x-form-field>
-                        <x-form-label for="password" type="password">Password</x-form-label>
+                        <x-form-label for="password">Password</x-form-label>
                         <div class="mt-2">
-                            <x-form-input name="password" id="password" required/>
+                            <x-form-input name="password" id="password" type="password" required/>
                             <x-form-error name="password"/>
                         </div>
                     </x-form-field>
