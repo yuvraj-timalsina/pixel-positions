@@ -15,6 +15,11 @@ class JobController extends Controller
         return view('jobs.index', ['jobs' => $jobs]);
     }
 
+    public function create(): View
+    {
+        return view('jobs.create');
+    }
+
     public function store(): RedirectResponse
     {
         request()?->validate([
@@ -28,12 +33,7 @@ class JobController extends Controller
             'employer_id' => 1,
         ]);
 
-        return redirect()->route('jobs');
-    }
-
-    public function create(): View
-    {
-        return view('jobs.create');
+        return to_route('jobs.index');
     }
 
     public function show(Job $job)
@@ -42,14 +42,16 @@ class JobController extends Controller
 
     }
 
-    public function edit(Job $job): View
+    public function edit(Job $job)
     {
+
         return view('jobs.edit', ['job' => $job]);
 
     }
 
     public function update(Job $job): RedirectResponse
     {
+
         request()?->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required'],
@@ -65,6 +67,7 @@ class JobController extends Controller
 
     public function destroy(Job $job): RedirectResponse
     {
+
         $job->delete();
 
         return to_route('jobs');
