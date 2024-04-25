@@ -35,7 +35,7 @@ class JobController extends Controller
             'employer_id' => 1,
         ]);
         Mail::to($job->employer->user)
-            ->send(new JobPostedMail($job));
+            ->queue(new JobPostedMail($job));
 
         return to_route('jobs.index');
     }
