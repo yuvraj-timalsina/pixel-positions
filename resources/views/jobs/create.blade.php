@@ -7,18 +7,18 @@
         <x-forms.input name="location" label="Location" placeholder="Winter Park, Florida"/>
 
         <x-forms.select name="schedule" label="schedule">
-            <option>Part-Time</option>
-            <option>Full-Time</option>
-            <option>Remote</option>
-            <option>Contract</option>
+            <option class="bg-gray-700">Part-Time</option>
+            <option class="bg-gray-700">Full-Time</option>
+            <option class="bg-gray-700">Remote</option>
+            <option class="bg-gray-700">Contract</option>
         </x-forms.select>
 
-        <x-forms.input name="url" label="URL" placeholder="https://example.com/ceo-wanted"/>
+        <x-forms.input name="url" label="URL" type="url" placeholder="https://example.com/ceo-wanted"/>
         <x-forms.checkbox name="featured" label="Feature (Costs Extra)"/>
 
         <x-forms.divider/>
 
-        <x-forms.input label="Tags (comma separated)" name="tags" placeholder="CEO, Full-Time, Remote"/>
+        <x-forms.input label="Tags (comma separated)" name="tags" placeholder="ceo, full-time, remote"/>
 
         <x-forms.button>Publish</x-forms.button>
     </x-forms.form>
