@@ -29,8 +29,15 @@
             <a href="">Companies</a>
         </div>
         @auth
-            <div>
-                <a href="/jobs/create">Post a Job</a>
+            <div class="space-x-6 font-bold flex">
+                <a href="{{ route('jobs.create') }}">Post a Job</a>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit">Log Out</button>
+                </form>
             </div>
         @endauth
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
@@ -29,9 +30,9 @@ class SessionController extends Controller
         return to_route('home');
     }
 
-    public function destroy(string $id)
+    public function destroy()
     {
-        auth()->logout();
+        Auth::logout();
 
         return to_route('home');
     }
